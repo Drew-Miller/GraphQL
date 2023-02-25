@@ -61,35 +61,36 @@ const resolvers = {
     },
   },
   Mutation: {
-    addBook: (_: any, __: { title: string, author: string }, contextValue: MyContext) => {
+    addBook: (_: any, req: { title: string, author: string }, contextValue: MyContext) => {
       let store: LibraryStore
       if (contextValue.dataSources && !!(store = contextValue.dataSources.libraryStore)) {
-        let author: Author = store.authors.list().find(x => x.name == __.author);
+        let author: Author = store.authors.list().find(x => x.name == req.author);
   
         if (!author) {
-          const authorId = Number(store.authors.list().map(x => x.id)[-1]) + 1;
+          const authorIds = store.authors.list().sort().map(x => x.id);
+          const authorId = Number(authorIds.pop()) + 1;
   
           store.authors.create({
             id: authorId,
-            name: __.author
+            name: req.author
           });
   
-          author = store.authors.list().find(x => x.name == __.author);
+          author = store.authors.list().find(x => x.name == req.author);
         }
 
-        console.log(JSON.stringify(author));
         
-        let book = store.books.list().find(x => x.title == __.title);
+        let book = store.books.list().find(x => x.title == req.title);
         if (!book) {
-          const bookId = Number(store.authors.list().map(x => x.id)[-1]) + 1;
+          const bookIds = store.books.list().sort().map(x => x.id);
+          const bookId = Number(bookIds.pop()) + 1;
   
           store.books.create({
             id: bookId,
-            title: __.title,
+            title: req.title,
             authorId: author.id
           });
   
-          book = store.books.list().find(x => x.title == __.title);
+          book = store.books.list().find(x => x.title == req.title);
         } else {
           store.books.update({
             ...book,
@@ -101,8 +102,6 @@ const resolvers = {
           ...book,
           author: store.authors.get(book.authorId)
         } as Book;
-
-        console.log(JSON.stringify(res));
 
         return res;
       }
