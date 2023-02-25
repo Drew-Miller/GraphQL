@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const typeDefs = `#graphql
 type Query {
   books: [Book]
@@ -25,4 +27,5 @@ type AddBookMutationResponse {
   book: Book
 }
 `;
-export default typeDefs;
+exports.default = typeDefs;
+//# sourceMappingURL=schema.js.map

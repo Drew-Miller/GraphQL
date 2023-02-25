@@ -1,5 +1,6 @@
 const typeDefs = `#graphql
 type Query {
+  heartbeat: String
   books: [Book]
   authors: [Author]
 }
