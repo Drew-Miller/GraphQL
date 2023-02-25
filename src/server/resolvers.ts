@@ -60,7 +60,7 @@ const resolvers = {
       }
     },
   },
-  Library: {
+  Mutation: {
     addBook: (_: any, __: { title: string, author: string }, contextValue: MyContext) => {
       let store: LibraryStore
       if (contextValue.dataSources && !!(store = contextValue.dataSources.libraryStore)) {
@@ -76,6 +76,8 @@ const resolvers = {
   
           author = store.authors.list().find(x => x.name == __.author);
         }
+
+        console.log(JSON.stringify(author));
         
         let book = store.books.list().find(x => x.title == __.title);
         if (!book) {
@@ -95,10 +97,14 @@ const resolvers = {
           })
         }
         
-        return {
+        const res = {
           ...book,
           author: store.authors.get(book.authorId)
         } as Book;
+
+        console.log(JSON.stringify(res));
+
+        return res;
       }
     }
   }

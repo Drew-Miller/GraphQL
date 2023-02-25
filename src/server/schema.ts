@@ -11,7 +11,7 @@ type Query {
 }
 
 # Operations grouped by context.
-type Library {
+type Mutation {
   addBook(title: String, author: String): Book
 }
 
