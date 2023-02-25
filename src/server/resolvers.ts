@@ -1,19 +1,37 @@
-import db from '../data';
+import db, { CollegeStore, LibraryStore } from '../data';
+import { MyContext } from './context';
 
 // The GraphQL schema
 const resolvers = {
   Query: {
-    Hearbeat: {
-      hello: () => 'world'
+    heartbeat: {
+      hello: () => 'world',
+      ping: () => 'pong'
     },
-    Library: {
-      books: () => db.books,
-      authors: () => db.authors
+    books: (_: any, __: any, contextValue: MyContext) => {
+      let store: LibraryStore
+      if (contextValue.dataSources && (store = contextValue.dataSources.libraryStore)) {
+        return store.books;
+      }
     },
-    School: {
-      colleges: () => db.colleges,
-      students: () => db.students
-    }
+    authors: (_: any, __: any, contextValue: MyContext) => {
+      let store: LibraryStore
+      if (contextValue.dataSources && (store = contextValue.dataSources.libraryStore)) {
+        return store.authors;
+      }
+    },
+    colleges: (_: any, __: any, contextValue: MyContext) => {
+      let store: CollegeStore
+      if (contextValue.dataSources && (store = contextValue.dataSources.collegeStore)) {
+        return store.colleges;
+      }
+    },
+    students: (_: any, __: any, contextValue: MyContext) => {
+      let store: CollegeStore
+      if (contextValue.dataSources && (store = contextValue.dataSources.collegeStore)) {
+        return store.students;
+      }
+    },
   }
 };
 

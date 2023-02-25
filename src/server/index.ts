@@ -3,18 +3,10 @@ import { startStandaloneServer } from '@apollo/server/standalone';
 import typeDefs from './schema';
 import resolvers from './resolvers';
 import db, { CollegeStore, LibraryStore } from '../data';
+import { MyContext } from './context';
 
 const { PORT } = process.env;
 const port = Number(PORT) || 4000;
-
-
-type MyContext = {
-  // Context typing
-  dataSources: {
-    libraryStore: LibraryStore,
-    collegeStore: CollegeStore
-  };
-}
 
 // Apollo Server setup
 const server = new ApolloServer<MyContext>({

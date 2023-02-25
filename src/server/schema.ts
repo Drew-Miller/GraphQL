@@ -3,6 +3,8 @@ type Query {
   heartbeat: String
   books: [Book]
   authors: [Author]
+  colleges: [College]
+  students: [Student]
 }
 
 type Mutation {
@@ -25,6 +27,23 @@ type AddBookMutationResponse {
   message: String!
   book: Book
 }
+
+type College {
+  id: String!
+  name: String!
+  location: String!
+  rating: Int
+}
+
+type Student {
+  id: String!
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
+  collegeId: String!
+}
+
 `;
 
 export default typeDefs;

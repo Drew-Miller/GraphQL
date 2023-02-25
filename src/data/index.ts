@@ -2,7 +2,7 @@ import { Collection, DataStore } from 'notarealdb';
 import { Author, Book, College, Student } from './types';
 
 // Data
-const store = new DataStore('./src');
+const store = new DataStore('./tables');
 
 export type CollegeStore = {
    students: Collection<Student>,
