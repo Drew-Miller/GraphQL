@@ -1,3 +1,7 @@
 import startServer from './server';
 
-startServer();
+const main = async () => {
+  await startServer();
+}
+
+main();

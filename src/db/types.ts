@@ -17,11 +17,10 @@ export type Student = {
 export type Book = {
   id: string,
   title: string,
-  author: Author
+  authorId: string
 };
 
 export type Author = {
   id: string,
   name: string,
-  books: Book[]
 };

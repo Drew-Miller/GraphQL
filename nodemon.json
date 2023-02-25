@@ -1,5 +1,4 @@
 {
-  "start:nodemon": "./node_modules/nodemon/bin/nodemon.js",
   "ignore": [".git", "node_modules", "dist"],
   "watch": ["./src"],
   "exec": "npm start",

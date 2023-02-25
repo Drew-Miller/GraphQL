@@ -1,4 +1,4 @@
-import { CollegeStore, LibraryStore } from "data";
+import { CollegeStore, LibraryStore } from "db";
 
 type MyContext = {
   // Context typing

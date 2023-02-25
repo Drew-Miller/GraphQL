@@ -1,14 +1,11 @@
 const typeDefs = `#graphql
 type Query {
-  heartbeat: String
+  hello: String
+  ping: String
   books: [Book]
   authors: [Author]
   colleges: [College]
   students: [Student]
-}
-
-type Mutation {
-  addBook(title: String, author: String): AddBookMutationResponse
 }
 
 type Book {
@@ -19,6 +16,10 @@ type Book {
 type Author {
   name: String!
   books: [Book!]!
+}
+
+type Mutation {
+  addBook(title: String, author: String): AddBookMutationResponse
 }
 
 type AddBookMutationResponse {

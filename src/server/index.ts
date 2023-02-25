@@ -2,7 +2,7 @@ import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import typeDefs from './schema';
 import resolvers from './resolvers';
-import db, { CollegeStore, LibraryStore } from '../data';
+import { CollegeStore, LibraryStore, students, colleges, books, authors } from '../db';
 import { MyContext } from './context';
 
 const { PORT } = process.env;
@@ -23,8 +23,14 @@ const startServer = async () => {
     listen: { port: port },
     context: async ({ req }) => ({
       dataSources: {
-        libraryStore: db as LibraryStore,
-        collegeStore: db as CollegeStore
+        libraryStore: {
+          authors,
+          books
+        } as LibraryStore,
+        collegeStore: {
+          students,
+          colleges
+        } as CollegeStore
       }
     }),
   });
