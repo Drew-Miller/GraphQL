@@ -1,0 +1,18 @@
+[
+  {
+    "id": "1",
+    "name": "Kate Chopin"
+  },
+  {
+    "id": "2",
+    "name": "Paul Auster"
+  },
+  {
+    "id": 3,
+    "name": "William Faulkner"
+  },
+  {
+    "id": 4,
+    "name": "Dr. Seuss"
+  }
+]

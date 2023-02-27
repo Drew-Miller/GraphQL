@@ -2,8 +2,10 @@ import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import typeDefs from './schema';
 import resolvers from './resolvers';
-import { CollegeStore, LibraryStore, students, colleges, books, authors } from '../db';
+import { CollegeStore, LibraryStore, students, colleges, books, authors } from '../../../data/src';
 import { MyContext } from './context';
+import { GraphQLError } from 'graphql';
+import { AppErrors } from './errors';
 
 const { PORT } = process.env;
 const port = Number(PORT) || 4000;
@@ -21,18 +23,28 @@ const server = new ApolloServer<MyContext>({
 const startServer = async () => {
   const { url } = await startStandaloneServer(server, {
     listen: { port: port },
-    context: async ({ req }) => ({
-      dataSources: {
+    context: async ({ req, res }) => {
+      if (!authors || !books) {
+        throw AppErrors.GetGraphQLError(AppErrors.LIBRARY_STORE_UNDEFINED);
+      }
+
+      if (!colleges || !students) {
+        throw AppErrors.GetGraphQLError(AppErrors.COLLEGE_STORE_UNDEFINED);
+      }
+
+      const dataSources = {
         libraryStore: {
           authors,
           books
-        } as LibraryStore,
+        },
         collegeStore: {
           students,
           colleges
-        } as CollegeStore
+        }
       }
-    }),
+
+      return { dataSources };
+    },
   });
   
   console.log(`🚀  Server ready at: ${url}`);

@@ -1,5 +1,5 @@
-import { Author, Book } from 'db/types';
-import { CollegeStore, LibraryStore, books } from '../db';
+import { Author, Book } from 'db/@types';
+import { CollegeStore, LibraryStore, books } from '../../../data/src';
 import { MyContext } from './context';
 
 // The GraphQL schema
