@@ -1,11 +1,7 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import * as dotenv from 'dotenv';
-import typeDefs from './schema';
-import resolvers from './resolvers';
-import { MyContext } from './context';
-import { MyToken } from './dto';
-import { SchoolSource, LibrarySource } from './sources';
+import { typeDefs, resolvers, MyContext, MyToken, SchoolSource, LibrarySource } from 'graphql-lib/src';
 
 dotenv.config();
 const { PORT, SCHOOL_URL, LIBRARY_URL } = process.env;

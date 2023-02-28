@@ -1,4 +1,4 @@
-const typeDefs = `#graphql
+export const typeDefs = `#graphql
 
 # Standard 1 to 1 queries.
 type Query {
@@ -45,5 +45,3 @@ type Author {
 }
 
 `;
-
-export default typeDefs;

@@ -1,12 +1,23 @@
 {
 	"folders": [
 		{
-			"path": "server"
+			"name": "graphql-lib",
+			"path": "graphql-lib"
 		},
 		{
+			"name": "graphql-server",
+			"path": "graphql-server"
+		},
+		{
+			"name": "graphql-app",
+			"path": "graphql-app"
+		},
+		{
+			"name": "school-app",
 			"path": "school-app"
 		},
 		{
+			"name": "library-app",
 			"path": "library-app"
 		}
 	],
