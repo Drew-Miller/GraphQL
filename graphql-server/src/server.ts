@@ -1,7 +1,14 @@
-import { ApolloServer } from '@apollo/server';
-import { startStandaloneServer } from '@apollo/server/standalone';
-import * as dotenv from 'dotenv';
-import { typeDefs, resolvers, MyContext, SchoolAPI, LibraryAPI, getTokenFromRequest } from 'graphql-lib';
+import { ApolloServer } from "@apollo/server";
+import { startStandaloneServer } from "@apollo/server/standalone";
+import * as dotenv from "dotenv";
+import {
+  typeDefs,
+  resolvers,
+  MyContext,
+  SchoolAPI,
+  LibraryAPI,
+  getTokenFromRequest,
+} from "graphql-lib";
 
 dotenv.config();
 const { PORT, SCHOOL_URL, LIBRARY_URL } = process.env;
@@ -27,14 +34,14 @@ const startServer = async () => {
 
       const dataSources = {
         libraryAPI: new LibraryAPI({ baseURL: LIBRARY_URL, token, cache }),
-        schoolAPI: new SchoolAPI({ baseURL: SCHOOL_URL, token, cache })
-      }
+        schoolAPI: new SchoolAPI({ baseURL: SCHOOL_URL, token, cache }),
+      };
 
       return { dataSources };
     },
   });
-  
+
   console.log(`🚀  Server ready at: ${url}`);
-}
+};
 
 export default startServer;

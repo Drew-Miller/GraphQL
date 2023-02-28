@@ -12,7 +12,8 @@ type Query {
 
 # Operations grouped by context.
 type Mutation {
-  addBook(title: String, author: String): Book
+  addBook(title: String!, author: String!): Book
+  getStudent(id: String!): Student
 }
 
 type College {

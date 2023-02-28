@@ -18,20 +18,26 @@ export class LibraryAPI extends RESTDataSource {
   }
 
   async getBooks(): Promise<Book[]> {
-    return this.get<Book[]>("/getbooks");
+    const data = await this.get("/api/getbooks");
+    const result: Book[] = JSON.parse(data);
+    return result;
   }
 
   async getAuthors(): Promise<Author[]> {
-    return this.get<Author[]>("/getauthors");
+    const data = await this.get("/api/getauthors");
+    const result: Author[] = JSON.parse(data);
+    return result;
   }
 
   async addBook(dto: AddBook): Promise<Book> {
-    return this.post<Book>("/addbook", {
+    const data = await this.post("/api/addbook", {
       body: dto
     });
+    const result: Book = JSON.parse(data);
+    return result;
   }
 
   override willSendRequest(_path: string, request: AugmentedRequest) {
-    request.headers['authorization'] = this.token;
+    request.headers['token'] = this.token;
   }
 }

@@ -17,15 +17,25 @@ export class SchoolAPI extends RESTDataSource {
     this.token = options.token;
   }
 
+  async getStudent(id: string): Promise<Student> {
+    const data = await this.get(`/api/getstudent?id=${encodeURIComponent(id)}`);
+    const result: Student = JSON.parse(data);
+    return result;
+  }
+
   async getStudents(): Promise<Student[]> {
-    return this.get<Student[]>("/getstudents");
+    const data = await this.get("/api/getstudents");
+    const result: Student[] = JSON.parse(data);
+    return result;
   }
 
   async getColleges(): Promise<College[]> {
-    return this.get<College[]>("/getcolleges");
+    const data = await this.get("/api/getcolleges");
+    const result: College[] = JSON.parse(data);
+    return result;
   }
 
   override willSendRequest(_path: string, request: AugmentedRequest) {
-    request.headers['authorization'] = this.token;
+    request.headers['token'] = this.token;
   }
 }
