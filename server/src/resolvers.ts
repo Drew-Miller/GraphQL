@@ -7,10 +7,10 @@ const resolvers = {
     hello: () => 'world',
     ping: () => 'pong',
     colleges: async (_: any, __: any, contextValue: MyContext) => {
-      return await contextValue.dataSources.collegeSource.getColleges();
+      return await contextValue.dataSources.schoolSource.getColleges();
     },
     students: async (_: any, __: any, contextValue: MyContext) => {
-      return await contextValue.dataSources.collegeSource.getStudents();
+      return await contextValue.dataSources.schoolSource.getStudents();
     },
     books: async (_: any, __: any, contextValue: MyContext) => {
       return await contextValue.dataSources.librarySource.getBooks();

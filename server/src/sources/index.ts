@@ -1,2 +1,2 @@
 export * from "./library-source";
-export * from "./college-source";
+export * from "./school-source";

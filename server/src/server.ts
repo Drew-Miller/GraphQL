@@ -1,12 +1,14 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
+import * as dotenv from 'dotenv';
 import typeDefs from './schema';
 import resolvers from './resolvers';
 import { MyContext } from './context';
 import { MyToken } from './dto';
-import { CollegeSource, LibrarySource } from './sources';
+import { SchoolSource, LibrarySource } from './sources';
 
-const { PORT, COLLEGE_URL, LIBRARY_URL } = process.env;
+dotenv.config();
+const { PORT, SCHOOL_URL, LIBRARY_URL } = process.env;
 const port = Number(PORT) || 4000;
 
 // Apollo Server setup
@@ -27,7 +29,7 @@ const startServer = async () => {
 
       const dataSources = {
         librarySource: new LibrarySource({ url: LIBRARY_URL, token }),
-        collegeSource: new CollegeSource({ url: COLLEGE_URL, token })
+        schoolSource: new SchoolSource({ url: SCHOOL_URL, token })
       }
 
       return { dataSources };
