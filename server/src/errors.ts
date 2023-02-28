@@ -8,14 +8,14 @@ export type Error = {
 };
 
 export class AppErrors {
-  public static COLLEGE_STORE_UNDEFINED: Error = {
-    message: "College store is not defined.",
+  public static LIBRARY_URL_UNDEFINED: Error = {
+    message: "Library url is not defined.",
     code: "",
     httpStatus: StatusCodes.FAILED_DEPENDENCY
   };
 
-  public static LIBRARY_STORE_UNDEFINED: Error = {
-    message: "Library store is not defined.",
+  public static COLLEGE_URL_UNDEFINED: Error = {
+    message: "Library url is not defined.",
     code: "",
     httpStatus: StatusCodes.FAILED_DEPENDENCY
   };

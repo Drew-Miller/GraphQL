@@ -2,12 +2,11 @@ import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import typeDefs from './schema';
 import resolvers from './resolvers';
-import { CollegeStore, LibraryStore, students, colleges, books, authors } from '../../../data/src';
 import { MyContext } from './context';
-import { GraphQLError } from 'graphql';
-import { AppErrors } from './errors';
+import { MyToken } from './dto';
+import { CollegeSource, LibrarySource } from './sources';
 
-const { PORT } = process.env;
+const { PORT, COLLEGE_URL, LIBRARY_URL } = process.env;
 const port = Number(PORT) || 4000;
 
 // Apollo Server setup
@@ -24,23 +23,11 @@ const startServer = async () => {
   const { url } = await startStandaloneServer(server, {
     listen: { port: port },
     context: async ({ req, res }) => {
-      if (!authors || !books) {
-        throw AppErrors.GetGraphQLError(AppErrors.LIBRARY_STORE_UNDEFINED);
-      }
-
-      if (!colleges || !students) {
-        throw AppErrors.GetGraphQLError(AppErrors.COLLEGE_STORE_UNDEFINED);
-      }
+      const token: MyToken = req.headers.token ?? "TEST_TOKEN";
 
       const dataSources = {
-        libraryStore: {
-          authors,
-          books
-        },
-        collegeStore: {
-          students,
-          colleges
-        }
+        librarySource: new LibrarySource({ url: LIBRARY_URL, token }),
+        collegeSource: new CollegeSource({ url: COLLEGE_URL, token })
       }
 
       return { dataSources };

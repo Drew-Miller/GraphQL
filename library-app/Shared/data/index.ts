@@ -1,6 +1,6 @@
 import { Collection, DataStore } from 'notarealdb';
 import * as path from 'path';
-import { Author, Book } from './types';
+import { AuthorEntity, BookEntity } from './types';
 
 // Relative path to the database
 const fp = path.resolve(__dirname, './data');
@@ -9,11 +9,11 @@ const fp = path.resolve(__dirname, './data');
 const store = new DataStore(fp);
 
 export type LibraryStore = {
-   authors: Collection<Author>,
-   books: Collection<Book>
+   authors: Collection<AuthorEntity>,
+   books: Collection<BookEntity>
 };
 
-const books = store.collection<Book>('books');
-const authors = store.collection<Author>('authors');
+const books = store.collection<BookEntity>('books');
+const authors = store.collection<AuthorEntity>('authors');
 
 export { books, authors };

@@ -1,10 +1,10 @@
-export type Book = {
+export type BookEntity = {
   id: string,
   title: string,
   authorId: string
 };
 
-export type Author = {
+export type AuthorEntity = {
   id: string,
-  name: string,
+  name: string
 };

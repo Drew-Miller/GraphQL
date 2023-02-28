@@ -1,6 +1,6 @@
 import { Collection, DataStore } from 'notarealdb';
 import * as path from 'path';
-import { College, Student } from './types';
+import { CollegeEntity, StudentEntity } from './types';
 
 // Relative path to the database
 const fp = path.resolve(__dirname, './data');
@@ -9,11 +9,11 @@ const fp = path.resolve(__dirname, './data');
 const store = new DataStore(fp);
 
 export type CollegeStore = {
-   students: Collection<Student>,
-   colleges: Collection<College>
+   students: Collection<StudentEntity>,
+   colleges: Collection<CollegeEntity>
 };
 
-const students = store.collection<Student>('students');
-const colleges = store.collection<College>('colleges');
+const students = store.collection<StudentEntity>('students');
+const colleges = store.collection<CollegeEntity>('colleges');
 
 export { students, colleges };

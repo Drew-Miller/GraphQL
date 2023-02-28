@@ -1,15 +1,16 @@
-export type CollegeEntity = {
+export type College = {
   id: string,
   name: string,
   location: string,
-  rating: number
+  rating: number,
+  students?: Student[]
 };
 
-export type StudentEntity = {
+export type Student = {
   id: string,
   firstName: string,
   lastName: string,
   email: string,
   password: string,
-  collegeId: string
+  college?: College
 };

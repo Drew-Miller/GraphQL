@@ -33,11 +33,13 @@ type Student {
 }
 
 type Book {
+  id: String
   title: String!
   author: Author!
 }
 
 type Author {
+  id: String
   name: String!
   books: [Book!]!
 }

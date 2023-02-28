@@ -1,10 +1,10 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
-import { CollegeSource } from "../Shared/college-source";
+import { AppSource } from "../Shared/app-source";
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
-    const collegeSource = new CollegeSource();
+    const source = new AppSource();
 
-    const colleges = collegeSource.get();
+    const colleges = source.getColleges();
 
     context.res = {
         // status: 200, /* Defaults to 200 */

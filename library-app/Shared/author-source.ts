@@ -1,14 +1,15 @@
 import { authors, books } from './data';
-import { Author } from './data/types';
+import { AuthorEntity } from './data/types';
+import { Author } from './dto';
 
 export class AuthorSource {
-  public getByName(name: string): Author {
+  public getByName(name: string): AuthorEntity {
     return authors.list().find(x => x.name == name);
   }
   
   public get(): Author[] {
     return authors.list().map(author => {
-      const res = {
+      const res: Author = {
         ...author,
         books: books
           .list()
@@ -18,14 +19,14 @@ export class AuthorSource {
     });
   }
 
-  public create(create: { name: string }): Author {
+  public create(create: { name: string }): AuthorEntity {
     const authorIds = authors.list().sort().map(x => x.id);
 
     const authorId = Number(authorIds.pop()) + 1;
 
-    const author: Author = {
+    const author: AuthorEntity = {
       id: authorId.toString(),
-      name: create.name
+      name: create.name,
     }
 
     authors.create(author);

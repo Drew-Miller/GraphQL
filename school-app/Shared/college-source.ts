@@ -1,5 +1,5 @@
 import { students, colleges } from './data';
-import { College, Student } from './data/types';
+import { College } from './dto';
 
 export class CollegeSource {
   public get(): College[] {

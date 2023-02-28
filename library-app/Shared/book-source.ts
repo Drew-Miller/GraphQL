@@ -1,7 +1,7 @@
 import { AuthorSource } from './author-source';
 import { authors, books } from './data';
-import { Author, Book } from './data/types';
-import { CreateBook } from './dto';
+import { AuthorEntity, BookEntity } from './data/types';
+import { Book, CreateBook } from './dto';
 
 type CreateEntity = {
   title: string,
@@ -9,13 +9,13 @@ type CreateEntity = {
 }; 
 
 export class BookSource {
-  public getByTitle(title: string): Book {
+  public getByTitle(title: string): BookEntity {
     return books.list().find(x => x.title == title);
   }
 
   public get(): Book[] {
     return books.list().map(book => {
-      const res = {
+      const res: Book = {
         ...book,
         author: authors.get(book.authorId)
       };
@@ -23,36 +23,11 @@ export class BookSource {
     });
   }
 
-  public addBook(create: CreateBook, authorSource: AuthorSource) {
-    let author: Author = authorSource.getByName(create.author);
-    if (!author) {
-      author = authorSource.create({ name: create.author });
-    }
-    
-    let book = this.getByTitle(create.title);
-    if (!book) {
-      book = this.create({ title: create.title, authorId: author.id });
-    } else {
-      books.update({
-        ...book,
-        authorId: author.id
-      });
-      book.authorId = author.id;
-    }
-    
-    const res = {
-      ...book,
-      author: author
-    } as Book;
-
-    return res;
-  }
-
-  public create(create: CreateEntity): Book {
+  public create(create: CreateEntity): BookEntity {
     const bookIds = books.list().sort().map(x => x.id);
     const bookId = Number(bookIds.pop()) + 1;
 
-    const book: Book = {
+    const book: BookEntity = {
       id: bookId.toString(),
       title: create.title,
       authorId: create.authorId
@@ -61,5 +36,9 @@ export class BookSource {
     books.create(book);
 
     return book;
+  }
+
+  public update(book: BookEntity) {
+    books.update(book);
   }
 }

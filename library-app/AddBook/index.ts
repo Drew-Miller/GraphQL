@@ -1,15 +1,13 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
-import { AuthorSource } from "../Shared/author-source";
-import { BookSource } from "../Shared/book-source";
+import { AppSource } from "../Shared/app-source";
 import { CreateBook } from "../Shared/dto";
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     const dto = req.body as CreateBook;
     
-    const bookSource = new BookSource();
-    const authorSource = new AuthorSource();
+    const source = new AppSource()
 
-    const res = bookSource.addBook(dto, authorSource);
+    const res = source.addBook(dto);
 
     context.res = {
         // status: 200, /* Defaults to 200 */
