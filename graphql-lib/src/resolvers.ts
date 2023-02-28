@@ -1,4 +1,4 @@
-import { AddBook } from 'dto';
+import { AddBook } from './dto';
 import { MyContext } from './context';
 
 // The GraphQL schema
