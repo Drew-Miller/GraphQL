@@ -17,13 +17,7 @@ export class SchoolSource {
 
   async getStudents(): Promise<Student[]> {
     const config = this.getAxiosConfig({ token: this.token });
-    try {
-      return await axios.get<Student[]>(this.url + "/getstudents", config).then(response => response.data);
-    } catch (error) {
-      console.log(JSON.stringify(error));
-      throw error;
-    }
-    
+    return await axios.get<Student[]>(this.url + "/getstudents", config).then(response => response.data);
   }
 
   async getColleges(): Promise<College[]> {

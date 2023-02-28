@@ -3,6 +3,8 @@ import { AppSource } from "../Shared/app-source";
 import { CreateBook } from "../Shared/dto";
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
+    context.log(req.headers.token);
+    
     const dto = req.body as CreateBook;
     
     const source = new AppSource()
