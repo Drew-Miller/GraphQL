@@ -4,8 +4,8 @@ import { AuthorEntity, BookEntity } from "./data/types";
 import { Author, Book, CreateBook } from "./dto";
 
 export class AppSource {
-  private bookSource: BookSource;
-  private authorSource: AuthorSource;
+  private bookSource = new BookSource()
+  private authorSource = new AuthorSource();
 
   public getBooks(): Book[] {
     return this.bookSource.get();

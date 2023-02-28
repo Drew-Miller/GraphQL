@@ -15,22 +15,22 @@ export class LibrarySource {
     this.token = options.token;
   }
 
-  getBooks(): Promise<Book[]> {
+  async getBooks(): Promise<Book[]> {
     const config = this.getAxiosConfig({ token: this.token });
-    return axios.get(this.url + "/getbooks", config);
+    return await axios.get<Book[]>(this.url + "/getbooks", config).then(response => response.data);
   }
 
-  getAuthors(): Promise<Author[]> {
+  async getAuthors(): Promise<Author[]> {
     const config = this.getAxiosConfig({ token: this.token });
-    return axios.get(this.url + "/getauthors", config);
+    return await axios.get<Author[]>(this.url + "/getauthors", config).then(response => response.data);
   }
 
-  addBook(dto: AddBook): Promise<Book> {
+  async addBook(dto: AddBook): Promise<Book> {
     const config = this.getAxiosConfig({ token: this.token });
-    return axios.post(this.url + "/addbook", {
+    return await axios.post<Book>(this.url + "/addbook", {
       ...config,
       data: dto
-    });
+    }).then(response => response.data);
   }
 
   private getAxiosConfig(options: { token: MyToken }): AxiosRequestConfig {

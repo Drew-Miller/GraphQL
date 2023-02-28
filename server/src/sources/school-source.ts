@@ -15,14 +15,14 @@ export class SchoolSource {
     this.token = options.token;
   }
 
-  getStudents(): Promise<Student[]> {
+  async getStudents(): Promise<Student[]> {
     const config = this.getAxiosConfig({ token: this.token });
-    return axios.get(this.url + "/getstudents", config);
+    return await axios.get<Student[]>(this.url + "/getstudents", config).then(response => response.data);
   }
 
-  getColleges(): Promise<College[]> {
+  async getColleges(): Promise<College[]> {
     const config = this.getAxiosConfig({ token: this.token });
-    return axios.get(this.url + "/getcolleges", config);
+    return await axios.get<College[]>(this.url + "/getcolleges", config).then(response => response.data);
   }
 
   private getAxiosConfig(options: { token: MyToken }): AxiosRequestConfig {

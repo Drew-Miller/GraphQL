@@ -1,7 +1,6 @@
-import { AuthorSource } from './author-source';
 import { authors, books } from './data';
-import { AuthorEntity, BookEntity } from './data/types';
-import { Book, CreateBook } from './dto';
+import { BookEntity } from './data/types';
+import { Book } from './dto';
 
 type CreateEntity = {
   title: string,
@@ -14,6 +13,9 @@ export class BookSource {
   }
 
   public get(): Book[] {
+    console.log(books.list());
+    console.log(authors.list());
+    
     return books.list().map(book => {
       const res: Book = {
         ...book,
