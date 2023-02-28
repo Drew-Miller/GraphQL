@@ -1,6 +1,12 @@
 import { AuthorSource } from './author-source';
 import { authors, books } from './data';
 import { Author, Book } from './data/types';
+import { CreateBook } from './dto';
+
+type CreateEntity = {
+  title: string,
+  authorId: string
+}; 
 
 export class BookSource {
   public getByTitle(title: string): Book {
@@ -17,7 +23,7 @@ export class BookSource {
     });
   }
 
-  public addBook(create: { title: string, author: string }, authorSource: AuthorSource) {
+  public addBook(create: CreateBook, authorSource: AuthorSource) {
     let author: Author = authorSource.getByName(create.author);
     if (!author) {
       author = authorSource.create({ name: create.author });
@@ -42,7 +48,7 @@ export class BookSource {
     return res;
   }
 
-  public create(create: { title: string, authorId: string }): Book {
+  public create(create: CreateEntity): Book {
     const bookIds = books.list().sort().map(x => x.id);
     const bookId = Number(bookIds.pop()) + 1;
 
