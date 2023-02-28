@@ -18,5 +18,10 @@
     "id": 4,
     "title": "Green eggs and ham",
     "authorId": 4
+  },
+  {
+    "id": "5",
+    "title": "The Stranger Beside Me",
+    "authorId": "5"
   }
 ]
