@@ -15,7 +15,7 @@ const port = Number(PORT) || 4000;
 const server = new ApolloServer<MyContext>({
   typeDefs,
   resolvers,
-})
+});
 
 // Passing an ApolloServer instance to the `startStandaloneServer` function:
 //  1. creates an Express app
