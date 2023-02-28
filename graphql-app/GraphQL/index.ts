@@ -5,9 +5,9 @@ import {
   typeDefs,
   resolvers,
   MyContext,
-  MyToken,
-  SchoolSource,
-  LibrarySource,
+  SchoolAPI,
+  LibraryAPI,
+  getTokenFromRequest,
 } from "graphql-lib";
 
 const { SCHOOL_URL, LIBRARY_URL } = process.env;
@@ -22,13 +22,14 @@ const server = new ApolloServer<MyContext>({
 
 export default startServerAndCreateHandler(server, {
   context: async (args: { context: Context }) => {
+    const { cache } = server;
     const { req, res } = args.context;
 
-    const token: MyToken = req.headers.token ?? "TEST_TOKEN";
+    const token = getTokenFromRequest(req);
 
     const dataSources = {
-      librarySource: new LibrarySource({ url: LIBRARY_URL, token }),
-      schoolSource: new SchoolSource({ url: SCHOOL_URL, token }),
+      libraryAPI: new LibraryAPI({ baseURL: LIBRARY_URL, token, cache }),
+      schoolAPI: new SchoolAPI({ baseURL: SCHOOL_URL, token, cache }),
     };
 
     return { dataSources };

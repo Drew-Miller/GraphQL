@@ -7,21 +7,21 @@ const resolvers = {
     hello: () => 'world',
     ping: () => 'pong',
     colleges: async (_: any, __: any, contextValue: MyContext) => {
-      return await contextValue.dataSources.schoolSource.getColleges();
+      return await contextValue.dataSources.schoolAPI.getColleges();
     },
     students: async (_: any, __: any, contextValue: MyContext) => {
-      return await contextValue.dataSources.schoolSource.getStudents();
+      return await contextValue.dataSources.schoolAPI.getStudents();
     },
     books: async (_: any, __: any, contextValue: MyContext) => {
-      return await contextValue.dataSources.librarySource.getBooks();
+      return await contextValue.dataSources.libraryAPI.getBooks();
     },
     authors: async (_: any, __: any, contextValue: MyContext) => {
-      return await contextValue.dataSources.librarySource.getAuthors();
+      return await contextValue.dataSources.libraryAPI.getAuthors();
     },
   },
   Mutation: {
     addBook: async (_: any, req: AddBook, contextValue: MyContext) => {
-      return await contextValue.dataSources.librarySource.addBook(req);
+      return await contextValue.dataSources.libraryAPI.addBook(req);
     }
   }
 };

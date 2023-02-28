@@ -1,10 +1,10 @@
-import { SchoolSource, LibrarySource } from "./sources";
+import { SchoolAPI, LibraryAPI } from "./api";
 
 type MyContext = {
   // Context typing
   dataSources: {
-    librarySource: LibrarySource,
-    schoolSource: SchoolSource
+    libraryAPI: LibraryAPI,
+    schoolAPI: SchoolAPI
   };
 }
 

@@ -1,5 +1,3 @@
-export type MyToken = string | string[];
-
 export type College = {
   id: string,
   name: string,
