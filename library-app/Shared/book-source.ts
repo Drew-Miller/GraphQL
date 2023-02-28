@@ -13,9 +13,6 @@ export class BookSource {
   }
 
   public get(): Book[] {
-    console.log(books.list());
-    console.log(authors.list());
-    
     return books.list().map(book => {
       const res: Book = {
         ...book,
