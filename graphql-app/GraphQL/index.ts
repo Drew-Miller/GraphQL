@@ -33,5 +33,5 @@ export default startServerAndCreateHandler(server, {
     };
 
     return { dataSources };
-  },
+  }
 });
