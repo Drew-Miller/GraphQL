@@ -1,7 +1,7 @@
 import { apolloClient } from "@/apollo/client";
 import { AUTHOR_QUERY, BOOK_QUERY, COLLEGE_QUERY, STUDENT_QUERY } from "@/apollo/queries";
 import { provideApolloClient, useQuery } from "@vue/apollo-composable";
-import type { Author, Book, College, Student } from "graphql-lib";
+import type { Author, Book, College, Student } from "@/dtos";
 import { defineStore } from "pinia";
 
 export const useApolloStore = defineStore('apollo', () => {
