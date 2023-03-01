@@ -3,6 +3,7 @@ import { gql } from '@apollo/client/core';
 const COLLEGE_QUERY = gql`
   query GetCollege {
     colleges {
+      id,
       name,
       location,
       rating,

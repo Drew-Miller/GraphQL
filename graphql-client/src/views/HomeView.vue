@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts">
-import { computed, reactive, ref } from 'vue';
+import { computed, reactive } from 'vue';
 import type { College, Student } from "graphql-lib";
 import { provideApolloClient, useQuery } from '@vue/apollo-composable';
 import { COLLEGE_QUERY, STUDENT_QUERY } from '@/apollo-queries';
@@ -54,7 +54,6 @@ provideApolloClient(apolloClient)
 const collegeQuery = useQuery<{ colleges: College[] }>(COLLEGE_QUERY);
 
 const studentQuery = useQuery<{ students: Student[] }>(STUDENT_QUERY);
-
 
 export default {
   setup() {
