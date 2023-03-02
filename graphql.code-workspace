@@ -18,6 +18,9 @@
 		},
 		{
 			"path": "graphql-vue-client"
+		},
+		{
+			"path": "graphql-svelte-client"
 		}
 	],
 	"settings": {

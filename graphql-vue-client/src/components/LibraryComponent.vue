@@ -33,7 +33,7 @@
 
 <script lang="ts">
 import { computed, ref } from 'vue';
-import type { Author, Book } from "graphql-lib";
+import type { Author, Book } from "@/dtos";
 import { useApolloStore } from '@/stores/apollo';
 
 export default {
