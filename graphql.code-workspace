@@ -17,16 +17,7 @@
 			"path": "graphql-app"
 		},
 		{
-			"name": "graphql-app-w-lib",
-			"path": "graphql-app-w-lib"
-		},
-		{
-			"name": "graphql-lib",
-			"path": "graphql-lib"
-		},
-		{
-			"name": "graphql-client",
-			"path": "graphql-client"
+			"path": "graphql-vue-client"
 		}
 	],
 	"settings": {

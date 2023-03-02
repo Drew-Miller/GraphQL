@@ -8,7 +8,7 @@ import {
   SchoolAPI,
   LibraryAPI,
   getTokenFromRequest,
-} from "graphql-lib";
+} from "../Shared/graphql-lib";
 
 const { SCHOOL_URL, LIBRARY_URL } = process.env;
 
