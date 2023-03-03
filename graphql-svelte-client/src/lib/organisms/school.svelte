@@ -19,13 +19,15 @@
 
   let destroy: Unsubscriber[] = [];
   onMount(async () => {
-    collegeQuery.subscribe(res => {
-      colleges = res.data?.colleges ?? [];
-    });
+    destroy = [
+      collegeQuery.subscribe(res => {
+        colleges = res.data?.colleges ?? [];
+      }),
 
-    studentQuery.subscribe(res => {
-      students = res.data?.students ?? [];
-    });  
+      studentQuery.subscribe(res => {
+        students = res.data?.students ?? [];
+      })
+    ]
   });
 
   onDestroy(() => {
