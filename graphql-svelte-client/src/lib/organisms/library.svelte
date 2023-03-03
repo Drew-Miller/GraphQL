@@ -1,14 +1,12 @@
 
-<script lang="ts">
+<script lang=ts>
   import { onDestroy, onMount } from "svelte";
-  import { setClient, query } from "svelte-apollo";
-  import { apolloClient } from "$apollo/client";
+  import { query } from "svelte-apollo";
+  
   import type { Author, Book } from "$apollo/dtos";
   import { AUTHOR_QUERY, BOOK_QUERY } from "$apollo/queries";
   import type { Unsubscriber } from "svelte/store";
 
-  setClient(apolloClient);
-  
   let authors: Author[] = [];
   let books: Book[] = [];
 

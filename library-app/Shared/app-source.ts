@@ -7,6 +7,10 @@ export class AppSource {
   private bookSource = new BookSource()
   private authorSource = new AuthorSource();
 
+  public searchByAuthor(name: string): Author[] {
+    return this.authorSource.searchByAuthor(name);
+  }
+
   public getBooks(): Book[] {
     return this.bookSource.get();
   }

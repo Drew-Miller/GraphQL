@@ -29,6 +29,10 @@ const resolvers = {
     getStudent: async (_: any, req: { id: string }, { dataSources }: MyContext) => {
       return dataSources.schoolAPI.getStudent(req.id);
     },
+
+    searchByAuthor: async (_: any, req: { name: string }, { dataSources }: MyContext ) => {
+      return dataSources.libraryAPI.searchByAuthor(req.name);
+    }
   }
 };
 

@@ -14,6 +14,7 @@ type Query {
 type Mutation {
   addBook(title: String!, author: String!): Book
   getStudent(id: String!): Student
+  searchByAuthor(name: String!): [Author]
 }
 
 type College {

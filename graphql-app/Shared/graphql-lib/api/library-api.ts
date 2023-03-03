@@ -17,6 +17,16 @@ export class LibraryAPI extends RESTDataSource {
     this.token = options.token;
   }
 
+  async searchByAuthor(name: string): Promise<Author[]> {
+    const body = {
+      name: name
+    };
+
+    const data = await this.post("/api/searchbyauthor", { body });
+    const result: Author[] = JSON.parse(data);
+    return result;
+  }
+
   async getBooks(): Promise<Book[]> {
     const data = await this.get("/api/getbooks");
     const result: Book[] = JSON.parse(data);

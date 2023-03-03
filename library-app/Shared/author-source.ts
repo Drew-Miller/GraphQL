@@ -3,6 +3,28 @@ import { AuthorEntity } from './data/types';
 import { Author } from './dto';
 
 export class AuthorSource {
+  public searchByAuthor(name: string): Author[] {
+    const results = authors.list().filter(author => {
+      const hit: boolean = author
+        .name.toLocaleLowerCase()
+        .indexOf(name.toLocaleLowerCase()) > -1;
+      
+      if (!hit) {
+        return;
+      }
+      return author;
+    });
+
+    return results.map(author => {
+      return {
+        ...author,
+        books: books
+          .list()
+          .filter(book => book.authorId == author.id)
+      } as Author;
+    });
+  }
+
   public getByName(name: string): AuthorEntity {
     return authors.list().find(x => x.name == name);
   }

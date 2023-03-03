@@ -1,13 +1,10 @@
 
 <script lang=ts>
   import { onDestroy, onMount } from "svelte";
-  import { setClient, query } from "svelte-apollo";
-  import { apolloClient } from "$apollo/client";
+  import { query } from "svelte-apollo";  
   import type { College, Student } from "$apollo/dtos";
   import { COLLEGE_QUERY, STUDENT_QUERY } from "$apollo/queries";
   import type { Unsubscriber } from "svelte/store";
-
-  setClient(apolloClient);
 
   let colleges: College[] = [];
   let students: Student[] = [];
