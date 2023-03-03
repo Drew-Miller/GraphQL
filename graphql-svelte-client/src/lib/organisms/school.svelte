@@ -1,10 +1,11 @@
 
 <script lang=ts>
-  import { onMount } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import { setClient, query } from "svelte-apollo";
   import { apolloClient } from "$apollo/client";
   import type { College, Student } from "$apollo/dtos";
   import { COLLEGE_QUERY, STUDENT_QUERY } from "$apollo/queries";
+  import type { Unsubscriber } from "svelte/store";
 
   setClient(apolloClient);
 
@@ -16,6 +17,7 @@
   $: collegeQuery.refetch();
   $: studentQuery.refetch();
 
+  let destroy: Unsubscriber[] = [];
   onMount(async () => {
     collegeQuery.subscribe(res => {
       colleges = res.data?.colleges ?? [];
@@ -24,6 +26,10 @@
     studentQuery.subscribe(res => {
       students = res.data?.students ?? [];
     });  
+  });
+
+  onDestroy(() => {
+    destroy.forEach(unsub => unsub());
   });
 
   let selectedCollege: College | null =  null;

@@ -1,10 +1,11 @@
 
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import { setClient, query } from "svelte-apollo";
   import { apolloClient } from "$apollo/client";
   import type { Author, Book } from "$apollo/dtos";
   import { AUTHOR_QUERY, BOOK_QUERY } from "$apollo/queries";
+  import type { Unsubscriber } from "svelte/store";
 
   setClient(apolloClient);
   
@@ -16,14 +17,20 @@
   $: authorQuery.refetch();
   $: bookQuery.refetch();
 
+  let destroy: Unsubscriber[] = [];
   onMount(async () => {
-    authorQuery.subscribe(res => {
-      authors = res.data?.authors ?? [];
-    });
+    destroy = [
+      authorQuery.subscribe(res => {
+        authors = res.data?.authors ?? [];
+      }),
+      bookQuery.subscribe(res => {
+        books = res.data?.books ?? [];
+      })
+    ];
+  });
 
-    bookQuery.subscribe(res => {
-      books = res.data?.books ?? [];
-    });  
+  onDestroy(() => {
+    destroy.forEach(unsub => unsub());
   });
 
   let selectedAuthor: Author | null = null;
