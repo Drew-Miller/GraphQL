@@ -6,15 +6,16 @@ type Query {
   ping: String
   colleges: [College]
   students: [Student]
+  getStudent(id: String!): Student
+
   books: [Book]
   authors: [Author]
+  searchByAuthor(name: String!): [Author]
 }
 
 # Operations grouped by context.
 type Mutation {
   addBook(title: String!, author: String!): Book
-  getStudent(id: String!): Student
-  searchByAuthor(name: String!): [Author]
 }
 
 type College {

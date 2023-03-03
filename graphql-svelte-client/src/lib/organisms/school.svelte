@@ -3,14 +3,14 @@
   import { onDestroy, onMount } from "svelte";
   import { query } from "svelte-apollo";  
   import type { College, Student } from "$apollo/dtos";
-  import { COLLEGE_QUERY, STUDENT_QUERY } from "$apollo/queries";
+  import { ALL_COLLEGES, ALL_STUDENTS } from "$apollo/queries";
   import type { Unsubscriber } from "svelte/store";
 
   let colleges: College[] = [];
   let students: Student[] = [];
   
-  const collegeQuery = query<{ colleges: College[] }>(COLLEGE_QUERY);
-  const studentQuery = query<{ students: Student[] }>(STUDENT_QUERY);
+  const collegeQuery = query<{ colleges: College[] }>(ALL_COLLEGES);
+  const studentQuery = query<{ students: Student[] }>(ALL_STUDENTS);
   $: collegeQuery.refetch();
   $: studentQuery.refetch();
 

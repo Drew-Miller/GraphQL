@@ -1,79 +1,77 @@
 
 <script lang=ts>
-  import { onDestroy, onMount } from "svelte";
+  import { onDestroy } from "svelte";
   import { query } from "svelte-apollo";
-  
   import type { Author, Book } from "$apollo/dtos";
-  import { AUTHOR_QUERY, BOOK_QUERY } from "$apollo/queries";
-  import type { Unsubscriber } from "svelte/store";
+  import { AUTHOR_SEARCH } from "$apollo/queries";
 
+  let input: string = "";
+  let selectedAuthor: Author | null = null;
   let authors: Author[] = [];
   let books: Book[] = [];
 
-  const authorQuery = query<{ authors: Author[] }>(AUTHOR_QUERY);
-  const bookQuery = query<{ books: Book[] }>(BOOK_QUERY);
-  $: authorQuery.refetch();
-  $: bookQuery.refetch();
-
-  let destroy: Unsubscriber[] = [];
-  onMount(async () => {
-    destroy = [
-      authorQuery.subscribe(res => {
-        authors = res.data?.authors ?? [];
-      }),
-      bookQuery.subscribe(res => {
-        books = res.data?.books ?? [];
-      })
-    ];
+  const search = query<{ searchByAuthor: Author[] }>(AUTHOR_SEARCH, {
+    variables: { name: input }
   });
 
-  onDestroy(() => {
-    destroy.forEach(unsub => unsub());
+  $: search.refetch({ name: input });
+
+  const sub = search.subscribe(results => {
+    console.log("REFETCHED");
+    authors = results.data?.searchByAuthor ?? [];
+    console.log(authors);
   });
 
-  let selectedAuthor: Author | null = null;
-  let selectedBook: Book | null = null;
-  
-  function toggleAuthor(index: number) {
-    selectedBook = null;
-    selectedAuthor = authors[index];
+  function selectAuthor(author: Author) {
+    selectedAuthor = author;
+    books = author.books
   }
 
-  function toggleBook(index: number) {
-    selectedAuthor = null;
-    selectedBook = books[index];
-  }
+  onDestroy(sub);
 </script>  
   
 <div class="section">
   <h2 class="section-title">Authors</h2>
-  <table class="table colleges">
+
+  <input type="text" bind:value="{input}" />
+
+  <table class="table">
     <thead>
       <tr>
         <th>Name</th>
       </tr>
     </thead>
     <tbody>
-      {#each authors as author, index}
-        <tr on:click="{() => toggleAuthor(index)}" class:selected="{author.id === selectedBook?.author.id || author === selectedAuthor}">
-          <td>{author.name}</td>
+      {#if !authors || !authors.length}
+        <tr>
+          <td>No Result</td>
         </tr>
-      {/each}
+      {:else}
+        {#each authors as author, index}
+          <tr>
+            <td> on:click="{() => selectAuthor(author)}"{author.name}</td>
+          </tr>
+        {/each}
+      {/if}
     </tbody>
   </table>
-  <h2 class="section-title">Books</h2>
-  <table class="table students">
+
+  <h2 class="section-title">Authors</h2>
+
+  <table class="table">
     <thead>
       <tr>
         <th>Title</th>
       </tr>
     </thead>
     <tbody>
-      {#each books as book, index}
-        <tr on:click="{ () => toggleBook(index) }" class:selected="{book.author.id === selectedAuthor?.id || book === selectedBook}">
-          <td>{book.title}</td>
-        </tr>
-      {/each}
+      {#if books && books.length}
+        {#each books as book}
+          <tr>
+            <td>{book.title}</td>
+          </tr>
+        {/each}  
+      {/if}
     </tbody>
   </table>
 </div>

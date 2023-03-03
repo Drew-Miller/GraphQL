@@ -1,14 +1,16 @@
 import { gql } from '@apollo/client/core';
 
 export {
-  COLLEGE_QUERY,
-  STUDENT_QUERY,
+  ALL_COLLEGES,
+  ALL_STUDENTS,
 
-  AUTHOR_QUERY,
-  BOOK_QUERY
+  ALL_AUTHORS,
+  ALL_BOOKS,
+
+  AUTHOR_SEARCH
 };
 
-const COLLEGE_QUERY = gql`
+const ALL_COLLEGES = gql`
   query GetCollege {
     colleges {
       id,
@@ -24,7 +26,7 @@ const COLLEGE_QUERY = gql`
   }
 `;
 
-const STUDENT_QUERY = gql`
+const ALL_STUDENTS = gql`
   query GetStudents {
     students {
       firstName,
@@ -40,7 +42,7 @@ const STUDENT_QUERY = gql`
   }
 `;
 
-const AUTHOR_QUERY = gql`
+const ALL_AUTHORS = gql`
   query GetAuthors {
     authors {
       id,
@@ -52,13 +54,24 @@ const AUTHOR_QUERY = gql`
   }
 `;
 
-const BOOK_QUERY = gql`
+const ALL_BOOKS = gql`
   query GetBooks {
     books {
       title,
       author {
         id,
         name
+      }
+    }
+  }
+`;
+
+const AUTHOR_SEARCH = gql`
+  query AuthorSearch($name: String!) {
+    searchByAuthor(name: $name) {
+      name
+      books {
+        title
       }
     }
   }

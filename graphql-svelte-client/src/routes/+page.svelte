@@ -10,5 +10,5 @@
 <div class="container">
   <h1 class="header">GraphQL Svelte Client</h1>
   <Library></Library>
-  <School></School>
+  <!-- <School></School> -->
 </div>
