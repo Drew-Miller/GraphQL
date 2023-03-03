@@ -1,37 +1,37 @@
 
-<script lang=ts>
+<script lang="ts">
+  import { onMount } from "svelte";
+  import { setClient, query } from "svelte-apollo";
+  import { apolloClient } from "$apollo/client";
   import type { Author, Book } from "$apollo/dtos";
-  
-  // const apolloStore = useApolloStore();
-  // const authorQuery = apolloStore.getAuthors();
-  // const bookQuery = apolloStore.getBooks();
-  
-  // const authors = computed<Author[]>(() => {
-  //   const results = authorQuery.result;
-  //   return results?.value?.authors ?? [];
-  // });
-  // const books = computed<Book[]>(() => {
-  //   const results = bookQuery.result;
-  //   return results?.value?.books ?? [];
-  // });
+  import { AUTHOR_QUERY, BOOK_QUERY } from "$apollo/queries";
 
-  let authors: Author[] = [{
-    id: "1",
-    name: "Hello",
-    books: []
-  }, {
-    id: "2",
-    name: "World",
-    books: []
-  }];
-  let books: Book[] = [];
+  setClient(apolloClient);
   
-  let selectedAuthor: Author | null =  null;
+  let authors: Author[] = [];
+  let books: Book[] = [];
+
+  const authorQuery = query<{ authors: Author[] }>(AUTHOR_QUERY);
+  const bookQuery = query<{ books: Book[] }>(BOOK_QUERY);
+  $: authorQuery.refetch();
+  $: bookQuery.refetch();
+
+  onMount(async () => {
+    authorQuery.subscribe(res => {
+      authors = res.data?.authors ?? [];
+    });
+
+    bookQuery.subscribe(res => {
+      books = res.data?.books ?? [];
+    });  
+  });
+
+  let selectedAuthor: Author | null = null;
   let selectedBook: Book | null = null;
   
   function toggleAuthor(index: number) {
-    selectedAuthor = authors[index];
     selectedBook = null;
+    selectedAuthor = authors[index];
   }
 
   function toggleBook(index: number) {

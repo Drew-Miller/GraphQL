@@ -1,44 +1,40 @@
 
 <script lang=ts>
+  import { onMount } from "svelte";
+  import { setClient, query } from "svelte-apollo";
+  import { apolloClient } from "$apollo/client";
   import type { College, Student } from "$apollo/dtos";
-  
-  // const apolloStore = useApolloStore();
-  // const authorQuery = apolloStore.getAuthors();
-  // const bookQuery = apolloStore.getBooks();
-  
-  // const authors = computed<Author[]>(() => {
-  //   const results = authorQuery.result;
-  //   return results?.value?.authors ?? [];
-  // });
-  // const books = computed<Book[]>(() => {
-  //   const results = bookQuery.result;
-  //   return results?.value?.books ?? [];
-  // });
+  import { COLLEGE_QUERY, STUDENT_QUERY } from "$apollo/queries";
 
-  let colleges: College[] = [{
-    id: "1",
-    name: "Hello",
-    location: "You Mom's",
-    rating: 5.0,
-    students: []
-  }, {
-    id: "2",
-    name: "World",
-    location: "House",
-    rating: 5.0,
-    students: []
-  }];
+  setClient(apolloClient);
+
+  let colleges: College[] = [];
   let students: Student[] = [];
   
+  const collegeQuery = query<{ colleges: College[] }>(COLLEGE_QUERY);
+  const studentQuery = query<{ students: Student[] }>(STUDENT_QUERY);
+  $: collegeQuery.refetch();
+  $: studentQuery.refetch();
+
+  onMount(async () => {
+    collegeQuery.subscribe(res => {
+      colleges = res.data?.colleges ?? [];
+    });
+
+    studentQuery.subscribe(res => {
+      students = res.data?.students ?? [];
+    });  
+  });
+
   let selectedCollege: College | null =  null;
   let selectedStudent: Student | null = null;
   
-  function toggleAuthor(index: number) {
+  function toggleCollege(index: number) {
     selectedCollege = colleges[index];
     selectedStudent = null;
   }
 
-  function toggleBook(index: number) {
+  function toggleStudent(index: number) {
     selectedCollege = null;
     selectedStudent = students[index];
   }
@@ -56,7 +52,7 @@
     </thead>
     <tbody>
       {#each colleges as college, index}
-        <tr on:click="{() => toggleAuthor(index)}" class:selected="{college.id === selectedStudent?.college.id || college === selectedCollege}">
+        <tr on:click="{() => toggleCollege(index)}" class:selected="{college.id === selectedStudent?.college.id || college === selectedCollege}">
           <td>{college.name}</td>
           <td>{college.location}</td>
           <td>{college.rating}</td>
@@ -75,7 +71,7 @@
     </thead>
     <tbody>
       {#each students as student, index}
-        <tr on:click="{ () => toggleBook(index) }" class:selected="{student.college.id === selectedCollege?.id || student === selectedStudent}">
+        <tr on:click="{ () => toggleStudent(index) }" class:selected="{student.college.id === selectedCollege?.id || student === selectedStudent}">
           <td>{student.firstName}</td>
           <td>{student.lastName}</td>
           <td>{student.email}</td>

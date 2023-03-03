@@ -10,8 +10,13 @@
 		"sourceMap": true,
 		"strict": true,
 		"paths": {
+			"$": ["./src"],
+			"$/*": ["./src/*"],
+			"$apollo": ["./src/apollo"],
 			"$apollo/*": ["./src/apollo/*"],
-			"$lib/*": ["./src/lib/*"],
+			"$lib":["./src/lib"],
+			"$lib/*":["./src/lib/*"],
+			"$stores": ["./src/stores"],
 			"$stores/*": ["./src/stores/*"],
 		}
 	}
