@@ -49,27 +49,31 @@
       {:else}
         {#each authors as author, index}
           <tr>
-            <td> on:click="{() => selectAuthor(author)}"{author.name}</td>
+            <td>{author.name}</td>
           </tr>
         {/each}
       {/if}
     </tbody>
   </table>
 
-  <h2 class="section-title">Authors</h2>
+  <h2 class="section-title">Books</h2>
 
   <table class="table">
     <thead>
       <tr>
         <th>Title</th>
+        <th>Author</th>
       </tr>
     </thead>
     <tbody>
-      {#if books && books.length}
-        {#each books as book}
-          <tr>
-            <td>{book.title}</td>
-          </tr>
+      {#if authors && authors.length}
+        {#each authors as author}
+          {#each author.books as book}
+            <tr>
+              <td>{book.title}</td>
+              <td>{author.name}</td>
+            </tr>
+          {/each}
         {/each}  
       {/if}
     </tbody>
