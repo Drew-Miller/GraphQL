@@ -6,9 +6,7 @@
   import { AUTHOR_SEARCH } from "$apollo/queries";
 
   let input: string = "";
-  let selectedAuthor: Author | null = null;
   let authors: Author[] = [];
-  let books: Book[] = [];
 
   const search = query<{ searchByAuthor: Author[] }>(AUTHOR_SEARCH, {
     variables: { name: input }
@@ -17,15 +15,8 @@
   $: search.refetch({ name: input });
 
   const sub = search.subscribe(results => {
-    console.log("REFETCHED");
     authors = results.data?.searchByAuthor ?? [];
-    console.log(authors);
   });
-
-  function selectAuthor(author: Author) {
-    selectedAuthor = author;
-    books = author.books
-  }
 
   onDestroy(sub);
 </script>  
