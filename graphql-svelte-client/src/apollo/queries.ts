@@ -70,9 +70,6 @@ const AUTHOR_SEARCH = gql`
   query AuthorSearch($name: String!) {
     searchByAuthor(name: $name) {
       name
-      books {
-        title
-      }
     }
   }
 `;
