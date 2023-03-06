@@ -1,4 +1,4 @@
-<script lang=ts>
+<script lang="ts">
   import { onMount, onDestroy } from "svelte";
   import { authorClient } from "$/apollo/author-client";
   import type { Unsubscriber } from "svelte/store";
@@ -19,7 +19,7 @@
   onMount(() => {
     let x = query.subscribe((payload) => {
       if (!payload.data) {
-        return results = [];
+        return (results = []);
       }
       results = payload.data.searchByAuthor.map((author) => author.name);
     });
@@ -38,16 +38,15 @@
   }
 
   function handleMouseEvent(event: MouseEvent) {
-      if (skipFirstSub) {
-        skipFirstSub = false;
-        return;
-      }
+    if (skipFirstSub) {
+      skipFirstSub = false;
+      return;
+    }
 
-      console.log(event);
-      if (event.type === "click") {
-        input.blur();
-        focused = false;
-      }
+    if (event.type === "click") {
+      input.blur();
+      focused = false;
+    }
   }
 
   function handleResultClick(result: string) {}
@@ -75,32 +74,44 @@
 
   <div
     class="search-bar"
-    class:focused={focused}
+    class:focused
     class:has-results={showResults}
     on:focusin={handleFocusChange}
   >
-    <input
-      type="text"
-      tabindex="0"
-      placeholder="Search..."
-      bind:value={searchText}
-      use:onUse
-      on:keydown={handleKeyDown}
-      on:click={handleClick}
-    />
+    <div class="search-bar-contents">
+      <span class="material-symbols-outlined">search</span>
 
-    {#if showResults}
-      <div class="search-results">
-        {#each results as result}
-          <div
-            class="search-result"
-            on:click={() => handleResultClick(result)}
-            on:keypress={() => handleResultClick(result)}
-          >
-            <p>{result}</p>
-          </div>
-        {/each}
-      </div>
-    {/if}
+      <input
+        type="text"
+        tabindex="0"
+        placeholder="Search..."
+        bind:value={searchText}
+        use:onUse
+        on:keydown={handleKeyDown}
+        on:click={handleClick}
+      />
+
+      {#if searchText}
+        <span
+          class="material-symbols-outlined"
+          on:click={() => (searchText = "")}
+          on:keypress={() => (searchText = "")}>close</span
+        >
+      {/if}
+
+      {#if showResults}
+        <div class="search-results">
+          {#each results as result}
+            <div
+              class="search-result"
+              on:click={() => handleResultClick(result)}
+              on:keypress={() => handleResultClick(result)}
+            >
+              <p>{result}</p>
+            </div>
+          {/each}
+        </div>
+      {/if}
+    </div>
   </div>
 </div>
