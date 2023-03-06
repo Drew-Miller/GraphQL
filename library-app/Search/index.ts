@@ -1,16 +1,12 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { AppSource } from "../Shared/app-source";
 
-type Request = {
-    name: string
-};
-
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     context.log(req.headers.token);
 
-    const name = (req.query.name || (req.body && req.body.name));
+    const value = (req.query.value || (req.body && req.body.value));
     
-    if (!name) {
+    if (!value) {
         context.res = {
             body: []
         }
@@ -19,7 +15,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
 
     const appSource = new AppSource();
 
-    const results = appSource.searchByAuthor(name);
+    const results = appSource.search(value);
 
     context.res = {
         body: results

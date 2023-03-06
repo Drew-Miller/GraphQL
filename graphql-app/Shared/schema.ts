@@ -10,12 +10,21 @@ type Query {
 
   books: [Book]
   authors: [Author]
-  searchByAuthor(name: String!): [Author]
+  search(value: String!): [SearchResult]
 }
 
 # Operations grouped by context.
 type Mutation {
   addBook(title: String!, author: String!): Book
+}
+
+type SearchResult {
+  weight: Float!
+  value: String!
+  description: String
+  body: String
+  type: String!
+  imgUrl: String
 }
 
 type College {

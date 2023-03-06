@@ -1,3 +1,12 @@
+export type SearchResult = {
+  weight: number,
+  value: string,
+  description?: string,
+  body?: string,
+  type: 'search' | 'recent' | 'img'
+  imgUrl?: string
+};
+
 export type College = {
   id: string,
   name: string,

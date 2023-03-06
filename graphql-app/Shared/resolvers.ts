@@ -23,8 +23,8 @@ const resolvers = {
     authors: async (_: any, __: any, { dataSources }: MyContext) => {
       return dataSources.libraryAPI.getAuthors();
     },
-    searchByAuthor: async (_: any, req: { name: string }, { dataSources }: MyContext ) => {
-      return dataSources.libraryAPI.searchByAuthor(req.name);
+    search: async (_: any, req: { value: string }, { dataSources }: MyContext ) => {
+      return dataSources.libraryAPI.search(req.value);
     }
   },
   Mutation: {

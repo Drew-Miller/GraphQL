@@ -7,8 +7,13 @@ export class AppSource {
   private bookSource = new BookSource()
   private authorSource = new AuthorSource();
 
-  public searchByAuthor(name: string): Author[] {
-    return this.authorSource.searchByAuthor(name);
+  public search(name: string): { authors: Author[], books: Book[] } {
+    const authors = this.authorSource.search(name);
+    const books = this.bookSource.search(name);
+
+    return {
+      authors, books
+    }
   }
 
   public getBooks(): Book[] {

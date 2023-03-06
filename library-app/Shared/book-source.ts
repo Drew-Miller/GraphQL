@@ -8,6 +8,24 @@ type CreateEntity = {
 }; 
 
 export class BookSource {
+  public search(value: string): Book[] {
+    const results = books.list().filter(book => {
+      const hit: boolean = this.searchHit(value, book)
+      
+      if (!hit) {
+        return;
+      }
+      return book;
+    });
+
+    return results.map(book => {
+      return {
+        ...book,
+        author: authors.get(book.authorId)
+      } as Book;
+    });
+  }
+
   public getByTitle(title: string): BookEntity {
     return books.list().find(x => x.title == title);
   }
@@ -39,5 +57,13 @@ export class BookSource {
 
   public update(book: BookEntity) {
     books.update(book);
+  }
+
+  private searchHit(value: string, entity: BookEntity): boolean {
+    const hit = entity
+      .title.toLocaleLowerCase()
+      .indexOf(value.toLocaleLowerCase()) > -1;
+
+    return hit;
   }
 }

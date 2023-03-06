@@ -1,7 +1,8 @@
 import { KeyValueCache } from "@apollo/utils.keyvaluecache";
 import { AugmentedRequest, RESTDataSource } from '@apollo/datasource-rest';
 import { AppErrors } from "../errors";
-import { Author, Book, AddBook } from "../dto";
+import { Author, Book, AddBook, SearchResult } from "../dto";
+import { Search } from "../search/search";
 
 export class LibraryAPI extends RESTDataSource {
   private token: string;
@@ -17,14 +18,19 @@ export class LibraryAPI extends RESTDataSource {
     this.token = options.token;
   }
 
-  async searchByAuthor(name: string): Promise<Author[]> {
+  async search(value: string): Promise<SearchResult[]> {
     const body = {
-      name: name
+      value: value
     };
 
-    const data = await this.post("/api/searchbyauthor", { body });
-    const result: Author[] = JSON.parse(data);
-    return result;
+    const data = await this.post("/api/search", { body });
+    const results: { authors: Author[], books: Book[] } = JSON.parse(data);
+    
+    const search = new Search(value);
+    search.addAuthors(results.authors);
+    search.addBooks(results.books);
+
+    return search.getResults();
   }
 
   async getBooks(): Promise<Book[]> {

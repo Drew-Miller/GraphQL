@@ -3,11 +3,9 @@ import { AuthorEntity } from './data/types';
 import { Author } from './dto';
 
 export class AuthorSource {
-  public searchByAuthor(name: string): Author[] {
-    const results = authors.list().filter(author => {
-      const hit: boolean = author
-        .name.toLocaleLowerCase()
-        .indexOf(name.toLocaleLowerCase()) > -1;
+  public search(value: string): Author[] {
+    const results: AuthorEntity[] = authors.list().filter(author => {
+      const hit: boolean = this.searchHit(value, author);
       
       if (!hit) {
         return;
@@ -18,9 +16,7 @@ export class AuthorSource {
     return results.map(author => {
       return {
         ...author,
-        books: books
-          .list()
-          .filter(book => book.authorId == author.id)
+        books: []
       } as Author;
     });
   }
@@ -54,5 +50,13 @@ export class AuthorSource {
     authors.create(author);
 
     return author;
+  }
+
+  private searchHit(value: string, entity: AuthorEntity): boolean {
+    const hit = entity
+      .name.toLocaleLowerCase()
+      .indexOf(value.toLocaleLowerCase()) > -1;
+
+    return hit;
   }
 }
