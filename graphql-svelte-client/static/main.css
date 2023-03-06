@@ -60,14 +60,11 @@
   padding: 0 20px;
 }
 
-.search-bar-contents > *:not(:last-child) {
-  margin-right: 10px;
-}
-
 .search-bar input {
   flex: 1;
   height: 100%;
   font-size: 1rem;
+  margin: 10px;
   border: none;
   outline: none;
   background: transparent;

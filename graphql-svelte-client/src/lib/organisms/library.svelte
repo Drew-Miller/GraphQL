@@ -94,6 +94,7 @@
       {#if searchText}
         <span
           class="material-symbols-outlined"
+          style="cursor: pointer"
           on:click={() => (searchText = "")}
           on:keypress={() => (searchText = "")}>close</span
         >
