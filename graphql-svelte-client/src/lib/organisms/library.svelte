@@ -107,7 +107,7 @@
               on:click={() => handleResultClick(result)}
               on:keypress={() => handleResultClick(result)}
             >
-              <p>{result}</p>
+              <a href="/author">{result}</a>
             </div>
           {/each}
         </div>
