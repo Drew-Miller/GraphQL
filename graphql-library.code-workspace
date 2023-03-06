@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"name": "library-app",
+			"path": "library-app"
+		},
+		{
+			"name": "graphql-app",
+			"path": "graphql-app"
+		},
+		{
+			"path": "graphql-svelte-client"
+		}
+	],
+	"settings": {
+		"debug.internalConsoleOptions": "neverOpen"
+	}
+}
