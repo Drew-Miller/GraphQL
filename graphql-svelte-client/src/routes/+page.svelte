@@ -36,6 +36,15 @@
     color: var(--color-heading);
     background-color: var(--color-background-weighted);
   }
+
+  .footer-date {
+    font-weight: 600;
+  }
+
+  .footer-brand {
+    font-family: 'VT323', sans-serif;
+    color: var(--persimmon);
+  }
 </style>
 
 <div class="page" on:click={handleClick} on:keypress={() => {}}>
@@ -43,7 +52,7 @@
   <footer class="footer">
     <span>Hello, world!</span>
     <span class="footer-date">{new Date().toDateString()}</span>
-    <span>Hello, world!</span>
+    <span class="footer-brand">capncrush</span>
   </footer>
 </div>
 
