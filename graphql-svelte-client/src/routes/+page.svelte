@@ -8,7 +8,6 @@
   setClient(apolloClient);
 
   function handleClick(event: MouseEvent) {
-    console.log("Set Click");
     mouseEventStore.set(event);
   }
 </script>

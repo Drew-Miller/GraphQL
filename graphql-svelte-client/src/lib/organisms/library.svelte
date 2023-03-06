@@ -19,21 +19,12 @@
   onMount(() => {
     let x = query.subscribe((payload) => {
       if (!payload.data) {
-        return (results = []);
+        return results = [];
       }
       results = payload.data.searchByAuthor.map((author) => author.name);
     });
 
-    let y = mouseEventStore.subscribe((event) => {
-      console.log(event);
-      if (skipFirstSub) {
-        skipFirstSub = false;
-        return;
-      }
-
-      focused = false;
-      input.blur();
-    });
+    let y = mouseEventStore.subscribe(handleMouseEvent);
 
     unsubscribes.push(x, y);
   });
@@ -42,18 +33,28 @@
     unsubscribes.forEach((x) => x());
   });
 
-  function setInput(el: HTMLInputElement) {
+  function onUse(el: HTMLInputElement) {
     input = el;
+  }
+
+  function handleMouseEvent(event: MouseEvent) {
+      if (skipFirstSub) {
+        skipFirstSub = false;
+        return;
+      }
+
+      console.log(event);
+      if (event.type === "click") {
+        input.blur();
+        focused = false;
+      }
   }
 
   function handleResultClick(result: string) {}
 
   function handleFocusChange(event: FocusEvent) {
-    switch (event.type) {
-      case "focusin": {
-        focused = true;
-        break;
-      }
+    if (event.type === "focusin") {
+      focused = true;
     }
   }
 
@@ -74,6 +75,7 @@
 
   <div
     class="search-bar"
+    class:focused={focused}
     class:has-results={showResults}
     on:focusin={handleFocusChange}
   >
@@ -82,7 +84,7 @@
       tabindex="0"
       placeholder="Search..."
       bind:value={searchText}
-      use:setInput
+      use:onUse
       on:keydown={handleKeyDown}
       on:click={handleClick}
     />
