@@ -44,6 +44,7 @@
   .footer-brand {
     font-family: 'VT323', sans-serif;
     color: var(--persimmon);
+    font-size: 1.25rem;
   }
 </style>
 
