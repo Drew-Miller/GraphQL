@@ -1,28 +1,19 @@
 @import './base.css';
 
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-
-  height: 100%;
-  margin-top: auto;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.icon-button {
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+  padding: 0;
+  text-align: inherit;
 }
 
-.container > * {
-  padding: 20px 0;
-}
-
-.header {
-  color: var(--color-brand-primary);
-  font-family: 'Smokum', sans-serif;
-  font-weight: 700;
-  font-size: 4rem;
-  text-align: center;
+.spacer {
+  flex: 1;
 }
 
 .search-bar {
@@ -38,6 +29,8 @@
 }
 
 .search-bar:hover, .search-bar:focus-within, .search-bar.focused {
+  /* Makes up for the missing border height */
+  margin: 1px;
   border: none;
   width: 100%;
   background-color: var(--color-background-soft);
@@ -93,9 +86,14 @@
   cursor: pointer;
 }
 
-.search-result a{
-  color: var(--color-link-visited);
+.search-result a {
   text-decoration: none;
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.search-result a:visited {
+  color: var(--color-link-visited);
 }
 
 .search-result:hover {

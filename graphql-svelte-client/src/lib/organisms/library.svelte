@@ -49,7 +49,9 @@
     }
   }
 
-  function handleResultClick(result: string) {}
+  function handleResultClick(result: string) {
+    searchText = result;
+  }
 
   function handleFocusChange(event: FocusEvent) {
     if (event.type === "focusin") {
@@ -58,15 +60,22 @@
   }
 
   function handleKeyDown(event: KeyboardEvent) {
+    // Focus out on escape
     if (event.key === "Escape") {
       focused = false;
       input.blur();
+      return;
+    }
+
+    if (event.key === "Enter") {
     }
   }
 
   function handleClick(event: MouseEvent) {
     event.stopPropagation();
   }
+
+  function search() {}
 </script>
 
 <div class="container">
@@ -79,7 +88,9 @@
     on:focusin={handleFocusChange}
   >
     <div class="search-bar-contents">
-      <span class="material-symbols-outlined">search</span>
+      <button class="icon-button" on:click={search}>
+        <span class="material-symbols-outlined">search</span>
+      </button>
 
       <input
         type="text"
@@ -92,12 +103,9 @@
       />
 
       {#if searchText}
-        <span
-          class="material-symbols-outlined"
-          style="cursor: pointer"
-          on:click={() => (searchText = "")}
-          on:keypress={() => (searchText = "")}>close</span
-        >
+        <button class="icon-button" on:click={() => (searchText = "")}>
+          <span class="material-symbols-outlined">close</span>
+        </button>
       {/if}
 
       {#if showResults}
@@ -116,3 +124,30 @@
     </div>
   </div>
 </div>
+
+<style>
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+
+  height: calc(100% - 200px);
+  margin-top: auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container > * {
+  padding: 20px 0;
+}
+
+.header {
+  color: var(--color-brand-primary);
+  font-family: 'Smokum', sans-serif;
+  font-weight: 700;
+  font-size: 4rem;
+  text-align: center;
+}
+</style>
