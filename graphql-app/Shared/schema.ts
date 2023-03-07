@@ -25,6 +25,7 @@ type SearchResult {
   body: String
   type: String!
   imgUrl: String
+  url: String
 }
 
 type College {

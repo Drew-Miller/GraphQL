@@ -17,11 +17,16 @@ export class Search {
   public addAuthors(items: Author[]): SearchResult[] {
     const results = items.map(item => {
       const itemValue = item.name;
-      return {
+      const result: SearchResult = {
         weight: this.weightResult(this.value, itemValue),
         value: itemValue,
-        type: 'search'
-      } as SearchResult
+        description: `Author, ${item.name}`,
+        body: `Books written by ${item.name}: ${item.books.map(book => book.title).join(', ')}`,
+        type: 'search',
+        url: `authors/${item.id}`
+      };
+
+      return result;
     });
 
     this.results.push(...results);
@@ -31,12 +36,16 @@ export class Search {
   public addBooks(items: Book[]): SearchResult[] {
     const results = items.map(item => {
       const itemValue = item.title;
-      return {
+      const result: SearchResult = {
         weight: this.weightResult(this.value, itemValue),
         value: itemValue,
+        description: item.author.name,
+        body: `Book written by ${item.author.name}`,
         type: 'search',
-        description: item.author.name
-      } as SearchResult
+        url: `authors/${item.id}`
+      };
+
+      return result;
     });
 
     this.results.push(...results);

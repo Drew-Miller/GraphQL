@@ -69,9 +69,12 @@ const ALL_BOOKS = gql`
 const AUTHOR_SEARCH = gql`
   query Search($value: String!) {
     search(value: $value) {
+      weight,
       value,
       description,
-      type
+      body,
+      type,
+      imgUrl
     }
   }
 `;

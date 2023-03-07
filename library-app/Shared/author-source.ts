@@ -1,5 +1,5 @@
 import { authors, books } from './data';
-import { AuthorEntity } from './data/types';
+import { AuthorEntity, BookEntity } from './data/types';
 import { Author } from './dto';
 
 export class AuthorSource {
@@ -14,10 +14,12 @@ export class AuthorSource {
     });
 
     return results.map(author => {
-      return {
+      const result: Author = {
         ...author,
-        books: []
-      } as Author;
+        books: this.getBooks(author.id)
+      };
+
+      return result;
     });
   }
 
@@ -27,13 +29,11 @@ export class AuthorSource {
   
   public get(): Author[] {
     return authors.list().map(author => {
-      const res: Author = {
+      const result: Author = {
         ...author,
-        books: books
-          .list()
-          .filter(book => book.authorId == author.id)
+        books: this.getBooks(author.id)
       };
-      return res;
+      return result;
     });
   }
 
@@ -51,6 +51,12 @@ export class AuthorSource {
 
     return author;
   }
+
+  private getBooks(authorId: string): BookEntity[] {
+    return books
+      .list()
+      .filter(book => book.authorId == authorId)
+  } 
 
   private searchHit(value: string, entity: AuthorEntity): boolean {
     const hit = entity
