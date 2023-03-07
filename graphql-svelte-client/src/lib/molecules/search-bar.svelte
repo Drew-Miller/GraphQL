@@ -21,7 +21,7 @@
 
   let unsubscribe: Unsubscriber;
   onMount(() => {
-    query.subscribe((payload) => {
+    unsubscribe = query.subscribe((payload) => {
       if (!payload.data) {
         return (results = []);
       }
@@ -85,7 +85,7 @@
     <input
       type="text"
       tabindex="0"
-      placeholder="Search..."
+      placeholder="Search..." 
       bind:value={searchText}
       use:onUse
       on:keydown={handleKeyDown}
@@ -180,7 +180,6 @@
     top: 40px;
     left: 0;
     right: 0;
-    padding-top: 10px;
     padding-bottom: 10px;
     background: var(--color-background-soft);
     border-radius: 0 0 20px 20px;
@@ -191,10 +190,12 @@
   .search-result {
     padding: 5px 40px;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
   }
 
   .search-result:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.1);
   }
 
   .search-result-value {
@@ -205,6 +206,6 @@
   .search-result-description {
     color: var(--color-text);
     font-weight: 500;
-    font-size: 0.5rem;
+    font-size: 0.6rem;
   }
 </style>
