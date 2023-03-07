@@ -67,9 +67,11 @@ const ALL_BOOKS = gql`
 `;
 
 const AUTHOR_SEARCH = gql`
-  query AuthorSearch($name: String!) {
-    searchByAuthor(name: $name) {
-      name
+  query Search($value: String!) {
+    search(value: $value) {
+      value,
+      description,
+      type
     }
   }
 `;

@@ -14,3 +14,8 @@ export type Author = {
   name: string,
   books?: Book[]
 };
+
+export type SearchResults = {
+  authors: Author[],
+  books: Book[]
+};

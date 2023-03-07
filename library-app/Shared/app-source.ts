@@ -1,13 +1,13 @@
 import { AuthorSource } from "./author-source";
 import { BookSource } from "./book-source";
 import { AuthorEntity, BookEntity } from "./data/types";
-import { Author, Book, CreateBook } from "./dto";
+import { Author, Book, CreateBook, SearchResults } from "./dto";
 
 export class AppSource {
   private bookSource = new BookSource()
   private authorSource = new AuthorSource();
 
-  public search(name: string): { authors: Author[], books: Book[] } {
+  public search(name: string): SearchResults {
     const authors = this.authorSource.search(name);
     const books = this.bookSource.search(name);
 

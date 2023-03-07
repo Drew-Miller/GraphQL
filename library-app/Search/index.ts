@@ -1,5 +1,6 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { AppSource } from "../Shared/app-source";
+import { SearchResults } from "../Shared/dto";
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     context.log(req.headers.token);
@@ -8,14 +9,17 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     
     if (!value) {
         context.res = {
-            body: []
+            body: {
+                authors: [],
+                books: []
+            } as SearchResults
         }
         return;
     }
 
     const appSource = new AppSource();
 
-    const results = appSource.search(value);
+    const results: SearchResults = appSource.search(value);
 
     context.res = {
         body: results

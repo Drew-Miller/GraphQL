@@ -1,7 +1,8 @@
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
-  import { authorClient } from "$/apollo/author-client";
   import type { Unsubscriber } from "svelte/store";
+  import { libraryClient } from "$/apollo/library-client";
+  import type { SearchResult } from "$apollo/dtos";
 
   export const loseFocus = () => {
     input.blur();
@@ -10,21 +11,21 @@
 
   let input: HTMLInputElement;
   let searchText: string = "";
-  let results: string[] = [];
+  let results: SearchResult[] = [];
   let focused: boolean = false;
 
-  const query = authorClient.authorSearch({ searchText });
+  const query = libraryClient.search({ value: searchText });
 
-  $: query.refetch({ name: searchText });
+  $: query.refetch({ value: searchText });
   $: showResults = focused && results && !!results.length;
 
   let unsubscribe: Unsubscriber;
   onMount(() => {
-    unsubscribe = query.subscribe((payload) => {
+    query.subscribe((payload) => {
       if (!payload.data) {
         return (results = []);
       }
-      results = payload.data.searchByAuthor.map((author) => author.name);
+      results = payload.data.search;
     });
   });
 
@@ -36,8 +37,9 @@
     input = el;
   }
 
-  function handleResultClick(result: string) {
-    searchText = result;
+  function handleResultClick(result: SearchResult) {
+    searchText = result.value;
+    search();
   }
 
   function handleFocusChange(event: FocusEvent) {
@@ -64,7 +66,9 @@
     event.stopPropagation();
   }
 
-  function search() {}
+  function search() {
+    console.log(searchText);
+  }
 </script>
 
 <div
@@ -102,7 +106,10 @@
           on:click={() => handleResultClick(result)}
           on:keypress={() => handleResultClick(result)}
         >
-          <a href="/author">{result}</a>
+          <span class="search-result-value">{result.value}</span>
+          {#if result.description}
+            <span class="search-result-description">{result.description}</span>
+          {/if}
         </div>
       {/each}
     </div>
@@ -186,17 +193,18 @@
     cursor: pointer;
   }
 
-  .search-result a {
-    text-decoration: none;
+  .search-result:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .search-result-value {
     color: var(--color-text);
     font-weight: 700;
   }
 
-  .search-result a:visited {
-    color: var(--color-link-visited);
-  }
-
-  .search-result:hover {
-    background: rgba(255, 255, 255, 0.1);
+  .search-result-description {
+    color: var(--color-text);
+    font-weight: 500;
+    font-size: 0.5rem;
   }
 </style>

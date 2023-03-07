@@ -56,7 +56,7 @@ export class Search {
     switch(options.sort) {
       // Weight sort
       default: {
-        return results.sort((a, b) => a.weight < b.weight ? 1 : 0);
+        return results.sort((a, b) => a.weight < b.weight ? -1 : 1);
       }
     }
   }
