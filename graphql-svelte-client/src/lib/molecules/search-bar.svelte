@@ -1,7 +1,8 @@
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
   import type { Unsubscriber } from "svelte/store";
-  import { libraryClient } from "$/apollo/library-client";
+  import { goto } from "$app/navigation";
+  import { libraryClient } from "$apollo/library-client";
   import type { SearchResult } from "$apollo/dtos";
 
   export const loseFocus = () => {
@@ -9,9 +10,9 @@
     focused = false;
   };
 
+  export let searchText: string = "";
+  export let results: SearchResult[] = [];
   let input: HTMLInputElement;
-  let searchText: string = "";
-  let results: SearchResult[] = [];
   let focused: boolean = false;
 
   const query = libraryClient.search({ value: searchText });
@@ -67,7 +68,11 @@
   }
 
   function search() {
-    console.log(searchText);
+    if (!searchText) {
+      return;
+    }
+
+    goto(`/search?q=${searchText}`);
   }
 </script>
 

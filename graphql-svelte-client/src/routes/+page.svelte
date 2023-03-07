@@ -1,7 +1,6 @@
-<script lang=ts>
+<script lang="ts">
   import { setClient } from "svelte-apollo";
   import Library from "$lib/organisms/library.svelte";
-  import School from "$lib/organisms/school.svelte";
   import { apolloClient } from "$apollo/client";
   import { mouseEventStore } from "$/stores/mouse-event-store";
 
