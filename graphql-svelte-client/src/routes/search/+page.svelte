@@ -34,7 +34,7 @@
   
 </div>
 
-<style>  
+<style>
   .page {
     position: relative;
     min-height: 100vh;
@@ -49,6 +49,7 @@
   .nav-bar {
     display: flex;
     align-items: center;
+    flex-direction: unset;
     width: 100%;
     height: 100px;
     padding: 0 40px;
@@ -65,5 +66,17 @@
 
   .search-bar-container {
     width: 700px;
+  }
+
+  @media only screen and (max-width: 800px) {
+    .nav-bar {
+      flex-direction: column;
+      height: unset;
+      align-items: unset;
+    }
+
+    .search-bar-container {
+      width: 100%;
+    }
   }
 </style>

@@ -37,7 +37,7 @@
   }
 
   .footer-date {
-    font-weight: 600;
+    /* font-weight: 600; */
   }
 
   .footer-brand {
@@ -50,7 +50,6 @@
 <div class="page" on:click={handleClick} on:keypress={() => {}}>
   <Library></Library>
   <footer class="footer">
-    <span>Hello, world!</span>
     <span class="footer-date">{new Date().toDateString()}</span>
     <span class="footer-brand">capncrush</span>
   </footer>

@@ -132,6 +132,7 @@
     display: flex;
     align-items: center;
     width: 100%;
+    max-width: 80vw;
     border: 1px solid var(--color-border);
     border-radius: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
