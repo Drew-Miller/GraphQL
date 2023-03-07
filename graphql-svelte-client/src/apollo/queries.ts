@@ -74,7 +74,8 @@ const AUTHOR_SEARCH = gql`
       description,
       body,
       type,
-      imgUrl
+      imgUrl,
+      url
     }
   }
 `;

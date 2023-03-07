@@ -21,7 +21,9 @@
 
 <div class="page" on:click={handleClick} on:keypress={() => {}}>
   <div class="nav-bar">
-    <h1 class="header">GQL Library</h1>
+    <a href="/">
+      <h1 class="header">GQL Library</h1>
+    </a>
 
     <div class="search-bar-container">
       <SearchBar searchText={data.q} bind:results={results}></SearchBar>
@@ -38,6 +40,10 @@
     min-height: 100vh;
     height: 100vh;
     padding-bottom: var(--footer-height);
+  }
+
+  a {
+    text-decoration: none;
   }
 
   .nav-bar {

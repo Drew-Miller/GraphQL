@@ -1,5 +1,11 @@
 <script lang="ts">
   import type { SearchResult } from "$apollo/dtos";
+  import { onMount } from "svelte";
+
+  let baseUrl = "";
+  onMount(() => {
+    baseUrl = window.location.origin;
+  });
 
   export let results: SearchResult[] = [];
 </script>
@@ -7,11 +13,11 @@
 <div class="search-results">
   {#each results as result, i}
     <div class="search-result">
-      <span class="url"></span>
-      <a>
+      <span class="url">{baseUrl}/{result.url}</span>
+      <a href={result.url}>
         <h3>{result.value}</h3>
       </a>
-      <p>{result.body}</p>
+      <p>{result.description}</p>
       <p>{result.body}</p>
     </div>
   {/each}
